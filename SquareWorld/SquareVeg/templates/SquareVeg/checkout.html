@@ -1,0 +1,44 @@
+﻿{% extends 'SquareVeg/index.html' %}
+{% load staticfiles %}
+
+{% block jquery %}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="content_grid">
+    <h1>Shopping Cart</h1>        	
+    <table cellspacing="0" cellpadding="5">
+        <tr>
+            <th class="col-lg-2" align="left">Image </th> 
+            <th class="col-lg-3" align="left">Description </th> 
+            <th class="col-lg-2" align="center">Quantity </th> 
+            <th class="col-lg-2" align="right">Price </th> 
+            <th class="col-lg-2" align="right">Total </th> 
+            <th class="col-lg-1"> </th>
+        </tr>
+        {% for cartitem in object.cartitem_set.all %}
+        <tr>
+            <td class="col-lg-2"><img src="{{ cartitem.item.get_image_url }}" alt="{{item.title}}" class="img-responsive" /></td> 
+            <td class="col-lg-3">{{cartitem.item.title}}</td> 
+            <td class="col-lg-2" align="center"><input type="text" value="{{cartitem.quantity}}" style="width: 20px; text-align: right" /> </td>
+            <td class="col-lg-2" align="center">{{cartitem.line_item_total}}</td> 
+            <td class="col-lg-2" align="center">$100 </td>
+            <td class="col-lg-1" align="center"> <a href="#"><img src="{% static 'images/close.png' %}" alt="remove" /></a> </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+
+{% endblock %}
+
+{% block navigationmenu %}
+            <h3 class="menu_head">Menu</h3>						    
+            <ul class="nav">
+                {% for category in categories %}
+			        <li><a href="{{category.id}}">{{category.title}}</a></li>                                    
+                {% endfor %}
+            </ul>
+{% endblock %}

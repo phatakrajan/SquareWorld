@@ -1,0 +1,162 @@
+﻿{% extends 'SquareVeg/index.html' %}
+{% load staticfiles %}
+
+{% block jquery %}
+<script>
+    $(document).ready(function(){
+
+        $(".qty-sel").on("change", function () {
+            var price = parseFloat($(this).val()) * parseFloat($(this).parent().siblings("li.amt").find("[id^=pricePerKg]").val());
+            $(this).parent().siblings("li.amt").find("[id^=price]").text(price);
+
+
+        });
+        $(".addCls").click(function () {
+            var id = $(this).siblings("input").val();
+            
+            var qty = $(this).parent().siblings("div.qty").find("select").val();
+
+            var data = {
+                'qty': qty,
+                'item': id,
+            }
+
+            if (qty > 0) {
+
+                //$.ajaxSetup({
+                //    data: { csrfmiddlewaretoken: '{{ csrf_token }}' },
+                //});
+
+                $.ajax({
+                    "type": "GET",
+                    "dataType": "json",
+                    "url": "{% url 'cart' %}",
+                    "data": data,
+                    "success": function(result) {
+                        showFlashMessage(result.flash_message);
+                        $(".cart_desc").html("<span>&#8377;&nbsp;</span> "+ result.subtotal +"<br/><span class=\"yellow\">"+ result.total_items +" items</span>" );
+                    },
+                });
+
+            }
+            else {
+                alert("Please select the quantity to be added");
+            }
+        });
+            });
+        </script>
+
+{% endblock %}
+
+{% block content %}
+
+{% if query %}
+    <h1> Search Results for: {{ query }}</h1>
+{% endif %}
+
+{% for item in object_list %}
+
+<div class="content_grid">
+    <div class="product col_1_of_3 col-lg-4 col-sm-6 col-xs-12" > 
+	    <div class="view view-first">
+		    <div class="inner_content clearfix">
+		        <div class="product_image">
+                    <div class="image">
+			            <img src="{{ item.get_image_url }}" class="img img-responsive full-width" alt=""/>                        
+                    </div>
+			        <div class="product_container">
+				        <div class="cart-left">
+					        <p class="name">{{item.title}} </p>
+				        </div>
+                        <hr />
+				        <div class="qty">
+                            <ul class="qty-select">
+                                <li class="qty_val" style="max-width:50%">
+                                    <select class="form-control qty-sel" id="quantity" required>
+                                        <option value="0.5">0.5</option>
+                                        <option value="1.0" selected>1.0</option>
+                                        <option value="1.5">1.5</option>
+                                        <option value="2.0">2.0</option>
+                                        <option value="2.5">2.5</option>
+                                        <option value="3.0">3.0</option>
+                                    </select>
+                                </li>       
+                                <li class="amt">
+                                    <span class="price" id="price">{{item.price}}</span>
+                                    <span class="price">&#8377;&nbsp;</span>
+                                    <input id="pricePerKg" type="hidden" value="{{ item.price }}"/>
+                                </li>    
+                            </ul>                            
+                        </div>
+                        <div class="clearfix"></div>
+				        <hr />
+                        <div class="add-button col-md-12 col-xs-12">   
+                            <input type="hidden" value="{{ item.id }}"/>                      
+                            <input id="addBtn" class="addCls" type="submit" value="ADD" />  
+                        </div>  
+                        <div class="clearfix"></div>
+                    </div>		
+		        </div>
+		    </div>
+	    </div>
+    </div>
+</div>
+{% endfor %}
+
+<div class="clearfix"></div>
+
+<div class="pagination">
+    <span class="step-links">
+        {% if object_list.has_previous %}
+            <a href="?page={{ contacts.previous_page_number }}">&laquo;</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}.
+        </span>
+
+        {% if object_list.has_next %}
+            <a href="?page={{ object_list.next_page_number }}">&raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+<div>
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            {% if object_list.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ object_list.previous_page_number }}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+                <span class="sr-only">Previous</span>
+                </a>
+            </li>
+            {% endif %}
+            <li class="page-item"><a class="page-link" href="?page={{ object_list.number|add:"-2" }}">{{  object_list.number|add:"-2" }}</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ object_list.number|add:"-1" }}">{{ object_list.number|add:"-1" }}</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ object_list.number }}">{{ object_list.number }}</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ object_list.number|add:"1"}}">{{ object_list.number|add:"1"}}</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ object_list.number|add:"2"}}">{{ object_list.number|add:"2"}}</a></li>
+            {% if object_list.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+                <span class="sr-only">Next</span>
+                </a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+
+{% endblock %}
+
+{% block navigationmenu %}
+    <h3 class="menu_head">Menu</h3>
+						    
+    <ul class="nav">
+        {% for category in categories %}
+		    <li><a href="{{category.id}}">{{category.title}}</a></li>                                    
+        {% endfor %}
+    </ul>
+{% endblock %}

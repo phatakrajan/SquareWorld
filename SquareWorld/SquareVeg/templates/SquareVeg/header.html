@@ -1,0 +1,59 @@
+   {% load staticfiles %}
+<div class="header">
+    <div class="top-header">
+		<div class="container">
+			<div class="top-header-left">
+				<ul class="support">
+					<li><a href="#"><label> </label></a></li>
+					<li><a href="#">24x7 live<span class="live"> support</span></a></li>
+				</ul>
+				<ul class="support">
+					<li class="van"><a href="#"><label> </label></a></li>
+					<li><a href="#">Free shipping <span class="live">on order over 500</span></a></li>
+				</ul>
+				<div class="clearfix"> </div>
+			</div>
+			<div class="clearfix"> </div>		
+		</div>
+	</div>
+    <div class="bottom-header">
+		<div>
+			<div class="header-bottom-left col-lg-8">
+				<div class="logo col-lg-3">
+					<a href="index.html"><img src="{% static 'images/Square Veg Final Logo.png'%}" alt=" " class="img-responsive" /></a>
+				</div>
+				<div class="search col-lg-8">
+                    <form action="{% url 'SquareVeg' %}" method="get">
+				        <input type="text" name="q"  value="" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}" />
+				        <input type="submit"  value="SEARCH" class='btn btn-default'/>                        
+                    </form>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+			<div class="header-bottom-right col-lg-3">					
+                <div class="cart col-lg-4">
+                    <a href="{% url 'cart' %}"><span> </span>CART</a>                    
+                </div>
+                {% if user and not user.is_anonymous %}
+                <ul class="login col-lg-8">
+					<li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown"><span> </span>Hello {{ user.get_short_name|default:user.username }} ! 
+                            <span class="caret"></span> 
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li> <a href="{% url 'auth:logout' %}?next=/SquareVeg">Logout</a></li>
+                        </ul>
+                    </li>                           
+                </ul>
+                {% else %}                    
+                <ul class="login col-lg-8">
+					<li><a href="login.html"><span> </span>LOGIN</a></li> |
+					<li><a href="{% url 'register' %}">SIGNUP</a></li>                    
+                </ul>
+                {% endif %}
+			    <div class="clearfix"> </div>
+			</div>
+			<div class="clearfix"> </div>	
+		</div>
+	</div>
+</div> 

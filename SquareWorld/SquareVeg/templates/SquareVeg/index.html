@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html>
+    {% load staticfiles %}
+    <head>
+        <title>Square Veg</title>
+	    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
+        <!-- Custom Theme files -->
+	    <link href="{% static 'css/style.css' %}" rel='stylesheet' type='text/css' />
+        <!-- Custom Theme files -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">            
+        <meta charset="utf-8">
+
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="{% static 'js/jquery-2.2.4.js' %}"></script> 
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'js/js.cookie.js' %}"></script>
+        <script src="{% static 'js/custom.js' %}"></script>
+              
+        <style>
+            {% block style %}{% endblock %}
+        </style>
+    </head>
+    <body>                
+        {% include "SquareVeg/header.html" %}   
+	    <div class="main">
+	      <div class="content_box">
+		    <div class="container">
+			    <div class="row">
+                    <div class="col-md-3">
+					    <div class="menu_box">
+
+                            {% block navigationmenu %}
+						    
+                            
+				            {% endblock %}
+					    </div>
+				    </div>
+			       <div class="col-md-9">
+                       <div class="cont_box">
+
+				    <h3 class="m_1">{{selectedCategory}}</h3>
+			            {% block content %}
+				        {% endblock %}
+                       </div>
+                   </div>
+			      </div>
+			    </div>
+		     </div>
+	     </div>
+         <div class="footer">
+            {% include "SquareVeg/footer.html" %}
+         </div>
+		 <div class="footer_bottom">             
+             {% include "SquareVeg/footer_bottom.html" %}
+         </div>
+        {% block jquery %}
+        {% endblock %}
+    </body>
+</html>

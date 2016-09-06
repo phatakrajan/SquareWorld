@@ -1,0 +1,64 @@
+﻿{% extends 'SquareVeg/index.html' %}
+{% load staticfiles %}
+
+{% block content %}
+
+<div class="register">
+    <form class="col-lg-12" method="post" action="{% url 'register' %}"> 
+        {% csrf_token %}
+        <div class="register-top-grid col-lg-8">
+            <h3>PERSONAL INFORMATION</h3>
+            <div class="col-lg-12">
+                <span>First Name<label>*</label></span>
+                <input type="text" id="firstname" name="firstname" class="col-lg-12"> 
+					
+                <span>Last Name<label>*</label></span>
+                <input type="text" id="lastname" name="lastname" class="col-lg-12">  
+					 
+                <span>Email Address<label>*</label></span>
+                <input type="text" id="email" name="email" class="col-lg-12"> 
+            </div>
+            <div class="clearfix"> </div>
+            <a class="news-letter" >
+                <label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i> </i>Sign Up</label>
+            </a>
+        </div>
+        <div class="register-bottom-grid col-lg-8">
+            <h3>LOGIN INFORMATION</h3>
+            <div class="col-lg-12">
+                <span>Password<label>*</label></span>
+                <input type="password" class="col-lg-12"> 
+                <span>Confirm Password<label>*</label></span>
+                <input type="password" id="password" name="password" class="col-lg-12"> 
+            </div>
+        </div>     
+        <div class="clearfix"> </div>               
+        <div class="add-button">
+            <input type="submit" value="submit">
+            <div class="clearfix"> </div>            
+        </div>
+    </form>
+    <div class="clearfix"> </div>
+    <div class="add-button">
+        <form>
+            <div class="sign-up"> <h2>or</h2> </div>
+            <div class="clearfix"> </div>
+            <div class="header-social wthree">
+				<a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}" class="face"><h5>Sign In using Facebook</h5></a>
+				<a href="#" class="twitt"><h5>Sign In using Twitter</h5></a>
+			</div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block navigationmenu %}
+    <h3 class="menu_head">Menu</h3>
+						    
+    <ul class="nav">
+        {% for category in categories %}
+		    <li><a href="{{category.id}}">{{category.title}}</a></li>                                    
+        {% endfor %}
+    </ul>
+{% endblock %}
