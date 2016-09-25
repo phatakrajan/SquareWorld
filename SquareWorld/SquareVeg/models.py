@@ -154,3 +154,15 @@ def do_tax_and_total_receiver(sender, instance, *args, **kwargs):
 	#instance.save()
 
 pre_save.connect(do_tax_and_total_receiver, sender=Cart)
+
+
+class Addresses(models.Model):
+    user_id = models.ForeignKey('auth.user',on_delete=models.CASCADE)
+    user_name = models.CharField(max_length=150)
+    city = models.CharField(max_length=50)
+    street_address = models.TextField(max_length=400)
+    landmark = models.CharField(max_length=150)
+    pincode = models.IntegerField(default=411057)
+
+    def __unicode__(self):
+        return self.user_name

@@ -1,6 +1,7 @@
 ﻿from django.contrib.auth.models import User
 from django.shortcuts import render
 from django.views.generic.base import TemplateView
+from django.http.response import Http404
 
 class RegisterView(TemplateView):
     """description of class"""
@@ -33,3 +34,18 @@ class LoginView(TemplateView):
     def get(self, request, *args, **kwargs):
         # super(RegisterView, self).get(request, *args, **kwargs)
         return render(request,'SquareVeg/login.html') 
+
+    def post(self, request, *args, **kwargs):
+
+        try:
+            email = request.POST.get('email')
+            password = request.POST.get('password')
+
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                # Redirect to a success page.
+            else:
+                Http404("Login Failed !!!")
+        except:
+            raise Http404("Invalid User")

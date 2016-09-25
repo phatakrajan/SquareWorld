@@ -403,7 +403,10 @@ ul.qty-select li.amt{
 	display: block;
 	text-transform: uppercase;
 }
-.register-top-grid input[type="text"], .register-bottom-grid input[type="password"] {
+.register-top-grid input[type="text"], 
+.register-top-grid textarea, 
+.register-top-grid select,
+.register-bottom-grid input[type="password"] {
 	border: 1px solid #EEE;
 	outline-color:#FF5B36;
 	font-size: 1em;

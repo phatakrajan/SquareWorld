@@ -7,14 +7,14 @@
 	<div class=" login-right">
 	    <h3>REGISTERED CUSTOMERS</h3>
 	    <p>If you have an account with us, please log in.</p>
-	    <form>
+	    <form method="post" action="{% url 'login' %}">
 		    <div>
 		        <span>Email Address<label>*</label></span>
-		        <input class="col-lg-11" type="text"> 
+		        <input class="col-lg-11" type="text" name="email"> 
 		    </div>
 		    <div>
 		        <span>Password<label>*</label></span>
-		        <input class="col-lg-11" type="password"> 
+		        <input class="col-lg-11" type="password" name="password"> 
 		    </div>
             <div class="clearfix"> </div>
 		    <a class="forgot" href="#">Forgot Your Password?</a>

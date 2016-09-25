@@ -32,6 +32,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="manage.py" />
+    <Compile Include="SquareVeg\AddressView.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="SquareVeg\admin.py">
       <SubType>Code</SubType>
     </Compile>
@@ -87,6 +90,7 @@
     <Content Include="SquareVeg\static\js\jquery.min.js" />
     <Content Include="SquareVeg\static\js\js.cookie.js" />
     <Content Include="SquareVeg\static\js\npm.js" />
+    <Content Include="SquareVeg\templates\SquareVeg\address.html" />
     <Content Include="SquareVeg\templates\SquareVeg\footer.html" />
     <Content Include="SquareVeg\templates\SquareVeg\footer_bottom.html" />
     <Content Include="SquareVeg\templates\SquareVeg\header.html" />

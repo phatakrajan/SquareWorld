@@ -1,0 +1,81 @@
+﻿{% extends 'SquareVeg/index.html' %}
+{% load staticfiles %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-9 col-xs-12">
+        <section id="addressForm">
+            <form action="./address" method="post" class="form-horizontal">
+                {% csrf_token %}
+                {% if errors %}
+                    <ul>
+                        {% for error in errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <div class="register-top-grid">
+					<h3>ADDRESS INFORMATION</h3>
+					 <div class="row col-md-12 col-xs-12">
+						<span class="col-md-4 col-xs-12">Name<label>*</label></span>
+						<input class="col-md-8 col-xs-12" type="text" name="name"/> 
+					 </div>                           					 
+                    <div class="row col-md-12 col-xs-12">
+						<span class="col-md-4 col-xs-12">Street Address<label>*</label></span>
+						<textarea rows="3" class="col-md-8 col-xs-12" name="address" ></textarea> 
+					 </div>                                            
+                    <div class="row col-md-12 col-xs-12">
+						<span class="col-md-4 col-xs-12">Landmark</span>
+						<input class="col-md-8 col-xs-12" type="text" name="landmark"/> 
+					 </div>
+                    <div class="row col-md-12 col-xs-12">
+						<span class="col-md-4 col-xs-12">City</span>
+						<select class="col-md-4 col-xs-12" name="city">
+                            <option selected="selected"  value="Pune">Pune</option>
+                        </select>
+					 </div>    
+                    <div class="row col-md-12 col-xs-12">
+						<span class="col-md-4 col-xs-12">Pincode<label>*</label></span>
+						<input class="col-md-8 col-xs-12" type="text" name="pincode"/> 
+					 </div>                                        
+                    <div class="row col-md-12 col-xs-12">
+						<span class="col-md-4 col-xs-12">Phone Number<label>*</label></span>
+						<div class="col-md-8 col-xs-12">
+                            <input class="phone_code" type="text" value="+91" disabled/> 
+                            <input type="text" name="phone"/>
+                        </div>
+					 </div>       
+                    <div class="add-button col-md-12 col-xs-12">
+                        <input type="submit" value="submit">  
+                    </div>                       
+                </div>
+            </form>
+        </section>
+        <div class="sav-ad">
+            <h3>Your Saved Addresses</h3>
+            <br />
+                        
+            {% for address in addresses %}
+            <div class="account_page_address_info sel" id="address_infos">
+                <div class="account_page_address_data">
+                    <span>
+                        <b>{{ address.user_name }}</b>
+                    </span>
+                    <br/>
+                    <span>{{address.street_address}}</span>
+                    <br/>
+                    <span>{{ address.city}} - {{address.pincode}}</span>
+                </div>
+            </div>   
+            {% endfor %}         
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block navigationmenu %} 
+    <li><a href="address">Address</a></li>     
+    <li><a href="orders">My Orders</a></li>                                 
+{% endblock %}

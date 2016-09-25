@@ -6,11 +6,13 @@ from SquareWorld import settings
 from SquareVeg.views import CartView
 from SquareVeg import views
 from SquareVeg.registerloginview import RegisterView, LoginView
+from SquareVeg.AddressView import AddressView
 
 urlpatterns = [
     url(r'^$', ProductListView.as_view(), name='SquareVeg'),        
     url(r'^(?P<pk>\d+)$', ProductListView.as_view(), name='SquareVeg_Category'),        
-    url(r'^register$', RegisterView.as_view(), name='register'),        
+    url(r'^register$', RegisterView.as_view(), name='register'),    
+    url(r'^address$', AddressView.as_view(), name='address'),    
     url(r'^login/$', LoginView.as_view(), name='login'),        
     url(r'^cart/$', CartView.as_view(), name='cart'),
     url(r'^admin/', include(admin.site.urls)),
